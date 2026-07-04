@@ -17,6 +17,9 @@
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@fontsource-variable/cinzel": "^5.2.8",
+    "@fontsource/alegreya-sans": "^5.2.8",
+    "@fontsource/libre-caslon-text": "^5.2.7",
     "@playwright/test": "^1.54.0",
     "@types/node": "^24.0.0",
     "@types/react": "^19.1.0",

@@ -26,8 +26,15 @@ export function CardView({ card, faceDown = false, small = false, glow = false, 
     <button className={cls} onClick={onClick} disabled={!onClick} data-testid={testId}>
       {face && (
         <>
-          <span className="card-rank">{rankLabel(face.rank)}</span>
-          <span className="card-suit">{SUIT_GLYPH[face.suit]}</span>
+          <span className="card-index">
+            {rankLabel(face.rank)}
+            <span className="card-index-suit">{SUIT_GLYPH[face.suit]}</span>
+          </span>
+          <span className="card-pip">{SUIT_GLYPH[face.suit]}</span>
+          <span className="card-index card-index-br" aria-hidden="true">
+            {rankLabel(face.rank)}
+            <span className="card-index-suit">{SUIT_GLYPH[face.suit]}</span>
+          </span>
         </>
       )}
     </button>

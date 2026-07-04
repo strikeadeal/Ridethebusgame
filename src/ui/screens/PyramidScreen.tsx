@@ -1,6 +1,7 @@
 import { rowValue } from '../../engine/engine';
 import type { Action, GameState, Phase2Stage } from '../../engine/types';
 import { CardView } from '../components/CardView';
+import { DrinkIcon } from '../components/icons';
 import { PlayerPicker } from '../components/PlayerPicker';
 
 // Render top row first; indexes into stage.pyramid (0-3 = bottom row).
@@ -33,7 +34,10 @@ export function PyramidScreen({ state, stage, dispatch }: Props) {
                 testId={`pyramid-card-${i}`}
               />
             ))}
-            <span className="row-value">{rowValue(row[0])}🍺</span>
+            <span className="row-value">
+              ×{rowValue(row[0])}
+              <DrinkIcon />
+            </span>
           </div>
         ))}
       </div>
