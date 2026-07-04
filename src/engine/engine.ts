@@ -1,7 +1,7 @@
 import { fullDeck, handSizeFor } from './deck';
-import { shuffle } from './rng';
+import { randomInt, shuffle } from './rng';
 import { evalHigherLower, evalInsideOutside, evalRedBlack, evalSuit } from './rules';
-import type { Action, Card, GameState, GuessAnswer, Phase1Stage, Suit } from './types';
+import type { Action, Card, GameState, GuessAnswer, PendingMatch, Phase1Stage, Suit } from './types';
 
 export const MIN_PLAYERS = 2;
 export const MAX_PLAYERS = 8;
@@ -102,13 +102,29 @@ function assignDrinks(state: GameState, toPlayer: number): GameState {
     if (toPlayer === stage.playerIndex) return state;
     return advancePhase1(addDrinks(state, toPlayer, 1));
   }
-  // Task 6: phase2 branch
+  if (stage.kind === 'phase2') {
+    const head = stage.matchQueue[0];
+    if (!head) return state;
+    if (toPlayer === head.playerIndex) return state;
+    const next = addDrinks(state, toPlayer, head.drinks);
+    return { ...next, stage: { ...stage, matchQueue: stage.matchQueue.slice(1) } };
+  }
   return state;
 }
 
 function flipPyramid(state: GameState): GameState {
-  // Task 6
-  return state;
+  const { stage } = state;
+  if (stage.kind !== 'phase2') return state;
+  if (stage.flipped >= 10 || stage.matchQueue.length > 0) return state;
+  const card = stage.pyramid[stage.flipped];
+  const drinks = rowValue(stage.flipped);
+  const matchQueue: PendingMatch[] = [];
+  const hands = stage.hands.map((hand, playerIndex) => {
+    const matchCount = hand.filter((c) => c.rank === card.rank).length;
+    for (let k = 0; k < matchCount; k++) matchQueue.push({ playerIndex, drinks });
+    return hand.filter((c) => c.rank !== card.rank);
+  });
+  return { ...state, stage: { ...stage, flipped: stage.flipped + 1, hands, matchQueue } };
 }
 
 function advance(state: GameState): GameState {
@@ -117,8 +133,19 @@ function advance(state: GameState): GameState {
     if (!stage.feedback || stage.feedback.correct) return state; // correct requires ASSIGN_DRINKS
     return advancePhase1(state);
   }
-  // Task 6: phase2 -> busReveal; Task 7: busReveal -> phase3, phase3 progress
+  if (stage.kind === 'phase2') {
+    if (stage.flipped < 10 || stage.matchQueue.length > 0) return state;
+    return revealRider(state);
+  }
+  // Task 7: busReveal -> phase3, phase3 progress
   return state;
+}
+
+function revealRider(state: GameState): GameState {
+  const max = Math.max(...state.players.map((p) => p.drinks));
+  const tied = state.players.map((_, i) => i).filter((i) => state.players[i].drinks === max);
+  const { value, rngState } = randomInt(tied.length, state.rngState);
+  return { ...state, rngState, stage: { kind: 'busReveal', riderIndex: tied[value] } };
 }
 
 /** Clear feedback and rotate: next player, next question, or deal Phase 2. */
