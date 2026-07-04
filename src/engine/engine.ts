@@ -1,7 +1,7 @@
 import { fullDeck, handSizeFor } from './deck';
 import { randomInt, shuffle } from './rng';
 import { evalHigherLower, evalInsideOutside, evalRedBlack, evalSuit } from './rules';
-import type { Action, Card, GameState, GuessAnswer, PendingMatch, Phase1Stage, Suit } from './types';
+import type { Action, Card, GameState, GuessAnswer, PendingMatch, Phase1Stage, Phase3Stage, Suit } from './types';
 
 export const MIN_PLAYERS = 2;
 export const MAX_PLAYERS = 8;
@@ -90,7 +90,14 @@ function guess(state: GameState, answer: GuessAnswer): GameState {
     const next = correct ? state : addDrinks(state, stage.playerIndex, 1);
     return { ...next, stage: { ...stage, feedback: { correct, card } } };
   }
-  // Task 7: phase3 branch
+  if (stage.kind === 'phase3') {
+    if (stage.feedback) return state;
+    const correct = evaluate(stage.position, answer, stage.cards);
+    if (correct === null) return state;
+    const card = stage.cards[stage.position];
+    const next = correct ? state : addDrinks(state, stage.riderIndex, 1);
+    return { ...next, stage: { ...stage, feedback: { correct, card } } };
+  }
   return state;
 }
 
@@ -137,8 +144,61 @@ function advance(state: GameState): GameState {
     if (stage.flipped < 10 || stage.matchQueue.length > 0) return state;
     return revealRider(state);
   }
-  // Task 7: busReveal -> phase3, phase3 progress
+  if (stage.kind === 'busReveal') {
+    return dealBus(state, stage.riderIndex);
+  }
+  if (stage.kind === 'phase3') {
+    if (!stage.feedback) return state;
+    if (stage.feedback.correct) {
+      if (stage.position === 3) {
+        return { ...state, stage: { kind: 'gameOver', riderIndex: stage.riderIndex, attempts: stage.attempts } };
+      }
+      return { ...state, stage: { ...stage, position: stage.position + 1, feedback: null } };
+    }
+    return redealBus(state);
+  }
   return state;
+}
+
+function dealBus(state: GameState, riderIndex: number): GameState {
+  const { items: deck, rngState } = shuffle(fullDeck(), state.rngState);
+  return {
+    ...state,
+    rngState,
+    stage: {
+      kind: 'phase3',
+      riderIndex,
+      cards: deck.slice(0, 4),
+      position: 0,
+      attempts: 1,
+      deck: deck.slice(4),
+      feedback: null,
+    },
+  };
+}
+
+/** Discard the row, deal 4 fresh cards, back to question 1. */
+function redealBus(state: GameState): GameState {
+  const stage = state.stage as Phase3Stage;
+  let deck = stage.deck;
+  let rngState = state.rngState;
+  if (deck.length < 4) {
+    const r = shuffle(fullDeck(), rngState);
+    deck = r.items;
+    rngState = r.rngState;
+  }
+  return {
+    ...state,
+    rngState,
+    stage: {
+      ...stage,
+      cards: deck.slice(0, 4),
+      deck: deck.slice(4),
+      position: 0,
+      attempts: stage.attempts + 1,
+      feedback: null,
+    },
+  };
 }
 
 function revealRider(state: GameState): GameState {
