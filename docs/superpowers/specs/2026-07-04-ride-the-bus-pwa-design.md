@@ -31,8 +31,9 @@ Safari (installable to the home screen but fully functional in-tab).
 - Invalid actions for the current state are rejected (state returned unchanged with an
   error flag); the UI cannot create an illegal game state.
 - All shuffling uses a **seeded PRNG** whose state lives inside `GameState`. Any game is
-  reproducible from its seed. A `?seed=` URL parameter (dev/test builds only) fixes the
-  seed for deterministic E2E tests.
+  reproducible from its seed. An undocumented `?seed=` URL parameter (honored in all
+  builds, including production, so E2E tests can run against the real build) fixes the
+  seed for deterministic runs; without it a random seed is used.
 
 ### UI (`src/ui/`) — React
 
@@ -107,9 +108,11 @@ new seed) and **New game** (back to setup).
    previously revealed cards shown small, 2–4 large answer buttons. Card-flip
    animation, then a verdict splash: "DRINK 🍺" or "CORRECT — give a drink" with a
    player-picker grid.
-4. **Pyramid** — full pyramid laid out with row values labeled; tap the next
-   face-down card to flip. Match announcements process matchers one at a time, each
-   with a player-picker.
+4. **Pyramid** — full pyramid laid out with row values labeled; below it, each
+   player's remaining hand shown face-up in a compact strip (hands are public per the
+   auto-detect decision). Tap the next face-down card to flip. Match announcements
+   process matchers one at a time, each with a player-picker; played cards leave the
+   matcher's strip.
 5. **Bus reveal** — spinner lands on the rider's name.
 6. **Bus** — 4 card slots with progress markers, question flow as Phase 1, visible
    attempt counter, "back to the start" animation on a wrong guess.
