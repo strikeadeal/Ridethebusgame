@@ -2,6 +2,7 @@ import { QUESTION_ANSWERS } from '../../engine/engine';
 import type { Action, GameState, Phase1Stage } from '../../engine/types';
 import { CardView } from '../components/CardView';
 import { PlayerPicker } from '../components/PlayerPicker';
+import { ANSWER_ICONS } from '../components/icons';
 import { ANSWER_LABELS, QUESTION_TEXT } from '../labels';
 
 interface Props {
@@ -35,6 +36,7 @@ export function Phase1Screen({ state, stage, dispatch }: Props) {
               data-testid={`answer-${answer}`}
               onClick={() => dispatch({ type: 'GUESS', answer })}
             >
+              {ANSWER_ICONS[answer]}
               {ANSWER_LABELS[answer]}
             </button>
           ))}
@@ -43,7 +45,7 @@ export function Phase1Screen({ state, stage, dispatch }: Props) {
       {stage.feedback && !stage.feedback.correct && (
         <div className="overlay">
           <div className="panel">
-            <h2 className="verdict verdict-wrong" data-testid="verdict">DRINK! 🍺</h2>
+            <h2 className="verdict verdict-wrong" data-testid="verdict">DRINK!</h2>
             <CardView card={stage.feedback.card} />
             <button
               className="btn btn-primary"

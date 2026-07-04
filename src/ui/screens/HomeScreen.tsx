@@ -15,6 +15,9 @@ export function HomeScreen({ canResume, onResume, onNewGame }: Props) {
         <br />
         BUS
       </h1>
+      <span className="ornament">
+        <span className="ornament-pip">♦</span>
+      </span>
       <button className="btn btn-primary" data-testid="home-new-game" onClick={onNewGame}>
         New Game
       </button>
@@ -24,7 +27,7 @@ export function HomeScreen({ canResume, onResume, onNewGame }: Props) {
         </button>
       )}
       <button className="btn btn-ghost" onClick={() => setShowRules(true)}>
-        ⓘ How to play
+        How to play
       </button>
       {showRules && (
         <div className="overlay" onClick={() => setShowRules(false)}>

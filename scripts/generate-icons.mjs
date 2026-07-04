@@ -6,15 +6,24 @@ function busSvg(scale = 1) {
   const g = (1 - scale) * 256;
   return `<?xml version="1.0"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <rect width="512" height="512" fill="#0a0a14"/>
+  <defs>
+    <radialGradient id="felt" cx="50%" cy="38%" r="75%">
+      <stop offset="0%" stop-color="#2a5a42"/>
+      <stop offset="55%" stop-color="#1e4433"/>
+      <stop offset="100%" stop-color="#0e2018"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#felt)"/>
   <g transform="translate(${g} ${g}) scale(${scale})">
-    <rect x="56" y="128" width="400" height="224" rx="44" fill="none" stroke="#22e6ff" stroke-width="18"/>
-    <line x1="72" y1="248" x2="440" y2="248" stroke="#22e6ff" stroke-width="10"/>
-    <rect x="104" y="168" width="72" height="52" rx="12" fill="#ff2d78"/>
-    <rect x="220" y="168" width="72" height="52" rx="12" fill="#ff2d78"/>
-    <rect x="336" y="168" width="72" height="52" rx="12" fill="#ff2d78"/>
-    <circle cx="150" cy="376" r="40" fill="#0a0a14" stroke="#a26bff" stroke-width="16"/>
-    <circle cx="362" cy="376" r="40" fill="#0a0a14" stroke="#a26bff" stroke-width="16"/>
+    <circle cx="256" cy="256" r="226" fill="none" stroke="#b08d4f" stroke-width="10"/>
+    <circle cx="256" cy="256" r="210" fill="none" stroke="#e2c37f" stroke-width="3"/>
+    <rect x="96" y="152" width="320" height="180" rx="34" fill="none" stroke="#d4af5f" stroke-width="16"/>
+    <line x1="110" y1="248" x2="402" y2="248" stroke="#d4af5f" stroke-width="9"/>
+    <rect x="134" y="184" width="58" height="42" rx="9" fill="#f4ecd9"/>
+    <rect x="227" y="184" width="58" height="42" rx="9" fill="#f4ecd9"/>
+    <rect x="320" y="184" width="58" height="42" rx="9" fill="#f4ecd9"/>
+    <circle cx="172" cy="352" r="32" fill="#1e4433" stroke="#b08d4f" stroke-width="13"/>
+    <circle cx="340" cy="352" r="32" fill="#1e4433" stroke="#b08d4f" stroke-width="13"/>
   </g>
 </svg>`;
 }

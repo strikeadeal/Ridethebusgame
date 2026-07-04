@@ -45,7 +45,7 @@ export function SetupScreen({ onStart, onBack }: Props) {
           <div key={i} className="setup-player" data-testid={`setup-player-${i}`}>
             <span>{n}</span>
             <button className="btn btn-ghost" onClick={() => setNames(names.filter((_, j) => j !== i))}>
-              ✕
+              ×
             </button>
           </div>
         ))}

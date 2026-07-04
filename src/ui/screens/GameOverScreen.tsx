@@ -1,4 +1,5 @@
 import type { GameOverStage, GameState } from '../../engine/types';
+import { DrinkIcon } from '../components/icons';
 
 interface Props {
   state: GameState;
@@ -16,13 +17,15 @@ export function GameOverScreen({ state, stage, onPlayAgain, onNewGame }: Props) 
       <h1 className="logo">GAME OVER</h1>
       <p className="question">
         {state.players[stage.riderIndex].name} escaped the bus after {stage.attempts} attempt
-        {stage.attempts === 1 ? '' : 's'} 🚌
+        {stage.attempts === 1 ? '' : 's'}
       </p>
       <div className="final-board" data-testid="gameover-scoreboard">
-        {sorted.map((p) => (
-          <div key={p.i} className="score">
+        {sorted.map((p, rank) => (
+          <div key={p.i} className={rank === 0 ? 'score score-top' : 'score'}>
             <span className="score-name">{p.name}</span>
-            <span className="score-drinks">{p.drinks} 🍺</span>
+            <span className="score-drinks">
+              {p.drinks} <DrinkIcon />
+            </span>
           </div>
         ))}
       </div>

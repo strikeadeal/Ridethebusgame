@@ -1,4 +1,5 @@
 import type { Action, BusRevealStage, GameState } from '../../engine/types';
+import { BusIcon } from '../components/icons';
 
 interface Props {
   state: GameState;
@@ -10,10 +11,13 @@ export function BusRevealScreen({ state, stage, dispatch }: Props) {
   return (
     <div className="screen center">
       <p className="phase-label">Phase 3 — Ride the Bus</p>
+      <span className="bus-mark reveal-pop">
+        <BusIcon size={44} />
+      </span>
       <h2 className="bus-rider reveal-pop" data-testid="bus-rider-name">
         {state.players[stage.riderIndex].name}
       </h2>
-      <p className="question">rides the bus! 🚌</p>
+      <p className="question">rides the bus!</p>
       <button className="btn btn-primary" data-testid="bus-deal-button" onClick={() => dispatch({ type: 'ADVANCE' })}>
         Deal the cards
       </button>

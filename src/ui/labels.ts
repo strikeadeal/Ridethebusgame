@@ -8,16 +8,16 @@ export const QUESTION_TEXT = [
 ];
 
 export const ANSWER_LABELS: Record<GuessAnswer, string> = {
-  red: '🔴 Red',
-  black: '⚫ Black',
-  higher: '⬆️ Higher',
-  lower: '⬇️ Lower',
-  inside: '↔️ Inside',
-  outside: '↕️ Outside',
-  hearts: '♥ Hearts',
-  diamonds: '♦ Diamonds',
-  clubs: '♣ Clubs',
-  spades: '♠ Spades',
+  red: 'Red',
+  black: 'Black',
+  higher: 'Higher',
+  lower: 'Lower',
+  inside: 'Inside',
+  outside: 'Outside',
+  hearts: 'Hearts',
+  diamonds: 'Diamonds',
+  clubs: 'Clubs',
+  spades: 'Spades',
 };
 
 export const SUIT_GLYPH: Record<Suit, string> = {
