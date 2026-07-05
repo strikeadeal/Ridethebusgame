@@ -10,7 +10,8 @@
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "icons": "node scripts/generate-icons.mjs"
+    "icons": "node scripts/generate-icons.mjs",
+    "sounds": "node scripts/generate-sounds.mjs"
   },
   "dependencies": {
     "canvas-confetti": "^1.9.4",

@@ -10,7 +10,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['apple-touch-icon.png'],
-      workbox: { globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'] },
+      workbox: { globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2,wav}'] },
       manifest: {
         name: 'Ride the Bus',
         short_name: 'RideTheBus',
