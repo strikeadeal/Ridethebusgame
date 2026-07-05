@@ -19,6 +19,9 @@ works offline after the first visit)
 The game rules engine lives in `src/engine/` — pure TypeScript, no React, all
 randomness seeded. React screens in `src/ui/` can only dispatch engine actions.
 
+## Aesthetic Thesis
+A late-night back-room card table — worn forest-green felt, a brass rail framing the screen, aged-ivory cards with paper grain and burnished-gold accents, dark mahogany. Low light; legible at arm's length; glanceable during play. Casino-adjacent without cliché. Avoid: generic "party app" neon, purple gradients, Inter/Roboto, illustrated face cards.
+
 ## Deployment
 
 Pushing to `main` runs unit + E2E tests and deploys to GitHub Pages.
