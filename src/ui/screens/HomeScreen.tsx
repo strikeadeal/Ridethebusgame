@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { SoundToggle } from '../components/SoundToggle';
 
 interface Props {
   canResume: boolean;
@@ -10,6 +11,9 @@ export function HomeScreen({ canResume, onResume, onNewGame }: Props) {
   const [showRules, setShowRules] = useState(false);
   return (
     <div className="screen center">
+      <div className="home-corner">
+        <SoundToggle />
+      </div>
       <h1 className="logo">
         RIDE THE
         <br />

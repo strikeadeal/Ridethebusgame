@@ -79,6 +79,7 @@ body::after {
 .app { flex: 1; display: flex; flex-direction: column; }
 
 .screen {
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -187,6 +188,25 @@ body::after {
   box-shadow: none;
   color: var(--muted);
   min-width: 0;
+}
+.btn-icon {
+  appearance: none;
+  background: none;
+  border: 1px solid var(--card-edge);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  opacity: 0.75;
+  padding: 0;
+}
+.home-corner {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 14px);
+  right: 14px;
 }
 .btn-answer {
   min-width: 0;
