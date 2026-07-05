@@ -24,7 +24,7 @@ export function Phase1Screen({ state, stage, dispatch }: Props) {
       <p className="question" data-testid="question">{QUESTION_TEXT[stage.questionIndex]}</p>
       <div className="card-row">
         {hand.map((card, i) => (
-          <CardView key={i} card={card} faceDown={i >= revealedCount} testId={`p1-card-${i}`} />
+          <CardView key={i} card={card} faceDown={i >= revealedCount} testId={`p1-card-${i}`} dealDelay={i * 0.05} />
         ))}
       </div>
       {!stage.feedback && (

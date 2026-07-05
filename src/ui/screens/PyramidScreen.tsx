@@ -32,6 +32,7 @@ export function PyramidScreen({ state, stage, dispatch }: Props) {
                 small
                 onClick={i === stage.flipped && !head ? () => dispatch({ type: 'FLIP_PYRAMID_CARD' }) : undefined}
                 testId={`pyramid-card-${i}`}
+                dealDelay={i * 0.05}
               />
             ))}
             <span className="row-value">

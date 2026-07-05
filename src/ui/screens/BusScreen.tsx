@@ -27,6 +27,7 @@ export function BusScreen({ state, stage, dispatch }: Props) {
             card={card}
             faceDown={i >= revealedCount}
             testId={`bus-card-${i}`}
+            dealDelay={i * 0.05}
           />
         ))}
       </div>
