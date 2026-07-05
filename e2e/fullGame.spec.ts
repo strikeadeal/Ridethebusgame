@@ -18,6 +18,14 @@ async function startGame(page: Page): Promise<GameState> {
 }
 
 test('full game: phase 1 → pyramid → bus → game over, UI locked to engine', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'share', { value: undefined, configurable: true });
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: async () => {} },
+      configurable: true,
+    });
+  });
+
   let mirror = await startGame(page);
   expect(mirror.stage.kind).toBe('phase1');
 
@@ -93,6 +101,10 @@ test('full game: phase 1 → pyramid → bus → game over, UI locked to engine'
 
   // ---- Game over: board visible, play-again restarts ----
   await expect(page.getByTestId('gameover-scoreboard')).toBeVisible();
+
+  await page.getByTestId('gameover-share').click();
+  await expect(page.getByTestId('gameover-share')).toHaveText('Copied!');
+
   await page.getByTestId('gameover-again').click();
   await expect(page.getByTestId('turn-banner')).toHaveText(NAMES[0]);
 });
