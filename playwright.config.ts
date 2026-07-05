@@ -5,6 +5,7 @@ export default defineConfig({
   timeout: 120_000,
   use: {
     baseURL: 'http://localhost:4173/Ridethebusgame/',
+    contextOptions: { reducedMotion: 'reduce' },
   },
   projects: [
     { name: 'iphone-webkit', use: { ...devices['iPhone 14'] }, grepInvert: /@offline/ },

@@ -10,9 +10,13 @@
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "icons": "node scripts/generate-icons.mjs"
+    "icons": "node scripts/generate-icons.mjs",
+    "sounds": "node scripts/generate-sounds.mjs"
   },
   "dependencies": {
+    "canvas-confetti": "^1.9.4",
+    "framer-motion": "^12.42.2",
+    "howler": "^2.2.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
@@ -21,6 +25,8 @@
     "@fontsource/alegreya-sans": "^5.2.8",
     "@fontsource/libre-caslon-text": "^5.2.7",
     "@playwright/test": "^1.54.0",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/howler": "^2.2.13",
     "@types/node": "^24.0.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",

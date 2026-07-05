@@ -10,6 +10,7 @@ import { PyramidScreen } from './ui/screens/PyramidScreen';
 import { SetupScreen } from './ui/screens/SetupScreen';
 import { newSeed } from './ui/seed';
 import { loadGame, saveGame } from './ui/storage';
+import { useGameSounds } from './ui/gameSounds';
 import { useWakeLock } from './ui/wakeLock';
 
 type Screen = 'home' | 'setup' | 'game';
@@ -25,6 +26,7 @@ export function App() {
   const { stage } = state;
   const inProgress = stage.kind !== 'idle' && stage.kind !== 'gameOver';
   useWakeLock(screen === 'game' && inProgress);
+  useGameSounds(state);
 
   if (screen === 'home') {
     return (

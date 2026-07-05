@@ -79,6 +79,7 @@ body::after {
 .app { flex: 1; display: flex; flex-direction: column; }
 
 .screen {
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -188,6 +189,25 @@ body::after {
   color: var(--muted);
   min-width: 0;
 }
+.btn-icon {
+  appearance: none;
+  background: none;
+  border: 1px solid var(--card-edge);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  opacity: 0.75;
+  padding: 0;
+}
+.home-corner {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 14px);
+  right: 14px;
+}
 .btn-answer {
   min-width: 0;
   flex: 1 1 40%;
@@ -207,6 +227,35 @@ body::after {
   margin-top: auto;
 }
 
+.card-scene {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  width: 72px;
+  height: 104px;
+  perspective: 600px;
+}
+.card-scene:disabled { opacity: 1; }
+.card-scene-small { width: 44px; height: 64px; }
+.card-flipper {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+.card-flipper .card {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.card-back-face { transform: rotateY(180deg); }
+
 .card {
   appearance: none;
   position: relative;
@@ -224,7 +273,6 @@ body::after {
   color: var(--ink);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
-.card:disabled { opacity: 1; }
 .card-small { width: 44px; height: 64px; border-radius: 6px; }
 .card-index {
   position: absolute;
@@ -250,8 +298,8 @@ body::after {
   font-size: 2.1rem;
 }
 .card-small .card-pip { font-size: 1.3rem; }
-.card-red { color: var(--oxblood); animation: flip 0.4s ease; }
-.card-black { color: var(--ink); animation: flip 0.4s ease; }
+.card-red { color: var(--oxblood); }
+.card-black { color: var(--ink); }
 .card-down {
   /* Gold lattice print inside an aged-ivory margin, like a real card back. */
   background:
@@ -272,10 +320,6 @@ body::after {
   animation: pulse 1.2s ease-in-out infinite;
 }
 
-@keyframes flip {
-  from { transform: rotateY(90deg); }
-  to { transform: rotateY(0); }
-}
 @keyframes pulse {
   50% {
     box-shadow:

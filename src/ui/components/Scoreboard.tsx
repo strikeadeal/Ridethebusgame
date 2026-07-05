@@ -1,4 +1,5 @@
 import type { Player } from '../../engine/types';
+import { SoundToggle } from './SoundToggle';
 
 export function Scoreboard({ players }: { players: Player[] }) {
   return (
@@ -11,6 +12,7 @@ export function Scoreboard({ players }: { players: Player[] }) {
           </span>
         </div>
       ))}
+      <SoundToggle />
     </div>
   );
 }
